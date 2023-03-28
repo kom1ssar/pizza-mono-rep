@@ -1,5 +1,13 @@
 import { IUser, UserRole } from '@pizza-mono-rep/interfaces';
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { compare, hash } from 'bcrypt';
 
 @Entity({ name: 'users' })
@@ -21,6 +29,15 @@ export class User implements IUser {
 
   @Column({ default: UserRole.CLIENT, enum: UserRole, type: 'enum' })
   role: UserRole;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   @BeforeInsert()
   private async setPassword(): Promise<void> {
