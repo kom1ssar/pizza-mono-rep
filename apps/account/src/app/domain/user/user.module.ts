@@ -9,5 +9,6 @@ import { UserRepository } from '../../infrastructure/repositories/user.repositor
   imports: [TypeOrmModule.forFeature([User])],
   providers: [UserService, UserRepository],
   controllers: [UserController],
+  exports: [UserRepository],
 })
 export class UserModule {}

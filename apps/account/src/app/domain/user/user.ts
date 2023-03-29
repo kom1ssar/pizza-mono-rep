@@ -9,42 +9,51 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { compare, hash } from 'bcrypt';
+import { UserCreateDto } from './dto/user-create.dto';
 
 @Entity({ name: 'users' })
 export class User implements IUser {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id: number;
 
   @Column({ unique: true })
-  email: string;
+  public email: string;
 
   @Column()
-  password: string;
+  public password: string;
 
   @Column({ nullable: true })
-  firstName: string;
+  public firstName?: string;
 
   @Column({ nullable: true })
-  address: string;
+  public address?: string;
 
   @Column({ default: UserRole.CLIENT, enum: UserRole, type: 'enum' })
-  role: UserRole;
+  public role: UserRole;
 
   @CreateDateColumn()
-  createdAt: Date;
+  public createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  public updatedAt: Date;
 
   @DeleteDateColumn()
-  deletedAt: Date;
+  public deletedAt: Date;
 
   @BeforeInsert()
   private async setPassword(): Promise<void> {
     this.password = await hash(this.password, 7);
   }
 
-  async passwordCompare(password: string): Promise<boolean> {
+  public async passwordCompare(password: string): Promise<boolean> {
     return await compare(password, this.password);
+  }
+
+  public createByDto(dto: UserCreateDto): this {
+    this.email = dto.email;
+    this.password = dto.password;
+    this.address = dto.address !== undefined ? dto.address : null;
+    this.firstName = dto.firstName !== undefined ? dto.firstName : null;
+    return this;
   }
 }
