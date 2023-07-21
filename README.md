@@ -1,3 +1,5 @@
+Идея была сделать мнорепу с 5-7 микросервисами и общением через RMQ (где то на локалке валяется схема-проекта, которую я составлял). Пока что руки не доходят очень много работы, но я доделаю!!
+
 # PizzaMonoRep
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
